@@ -1,27 +1,36 @@
 ﻿using System.Drawing;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace Snake_v2
 {
     public enum Kierunek { left, right, top, down };
 
-    class Head : BodyPart
+    class Head : Food
     {
         private int speedX, speedY;
-        //private Kierunek kierunek;
+        public int xx, yy;
 
-        /* Dziedziczenie konsturktora bazowego */
+        /* Dziedziczenie konstruktora bazowego */
         public Head() : base()
         { color = Brushes.DarkRed; speedX = 20; speedY = 0;}
 
         public Head(int x, int y) : base(x, y)
         { color = Brushes.DarkRed; speedX = 20; speedY = 0;}
 
-        public override void Rysuj(PaintEventArgs e) /* Rozdziel później!!! */
-        { xx = x; yy=y ; x += speedX; y += speedY; e.Graphics.FillRectangle(color, x, y, size, size); }
+        public override void Rysuj(PaintEventArgs e)
+        { Speed(); base.Rysuj(e);}
 
-        public void GameOver(Timer timer)
-        { if (x <= 0 || y <= 0) timer.Stop(); }
+        private void Speed(){xx = x; yy = y; x += speedX; y += speedY;}
+
+        public void GameOver(Timer timer, List<BodyPart> b, Head h)
+        {
+            if (x < 0 || y < 0 || x > 790 || y > 450) timer.Stop();
+
+            foreach(BodyPart item in b)
+                if (item.x == h.x && item.y == h.y)
+                    timer.Stop();
+        }
 
         public void Poruszanie(Kierunek k)
         {

@@ -9,7 +9,7 @@ namespace Snake_v2
         List<BodyPart> body = new List<BodyPart>();
         Head head = new Head();
         bool generujNoweJedzenie = true;
-        int x, y; /* Punkty do generowanie położenia jedzenia */
+        int x, y;
 
         public Forma()
         {
@@ -31,7 +31,7 @@ namespace Snake_v2
             jedzenie.Rysuj(e);
 
             head.Rysuj(e);
-            head.GameOver(timer);
+            head.GameOver(timer, body, head);
 
             body.Add(new BodyPart(head.xx, head.yy));
             if (head.x != jedzenie.x || head.y != jedzenie.y)
