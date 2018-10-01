@@ -9,7 +9,9 @@ namespace Snake_v2
     class Head : Food
     {
         private int speedX, speedY;
-        public int xx, yy;
+
+        public int X { get; set; }
+        public int Y { get; set; }
 
         /* Dziedziczenie konstruktora bazowego */
         public Head() : base()
@@ -21,14 +23,14 @@ namespace Snake_v2
         public override void Rysuj(PaintEventArgs e)
         { Speed(); base.Rysuj(e);}
 
-        private void Speed(){xx = x; yy = y; x += speedX; y += speedY;}
+        private void Speed(){X = x; Y = y; x += speedX; y += speedY;}
 
-        public void GameOver(Timer timer, List<BodyPart> b, Head h)
+        public void GameOver(Timer timer, List<BodyPart> b, int h, int w)
         {
-            if (x < 0 || y < 0 || x > 790 || y > 450) timer.Stop();
+            if (x < 0 || y < 0 || x > w-15 || y > h-19) timer.Stop();
 
             foreach(BodyPart item in b)
-                if (item.x == h.x && item.y == h.y)
+                if (item.x == x && item.y == y)
                     timer.Stop();
         }
 

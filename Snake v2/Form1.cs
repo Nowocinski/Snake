@@ -23,17 +23,19 @@ namespace Snake_v2
             if(generujNoweJedzenie == true)
             {
                 generujNoweJedzenie = false;
-                x = 20 * rnd.Next(0, 20);
-                y = 20 * rnd.Next(0, 20);
+                x = rnd.Next(0, ClientSize.Width - 20);
+                x -= x % 20;
+                y = rnd.Next(0, ClientSize.Height - 20);
+                y -= y % 20;
             }
 
             Food jedzenie = new Food(x,y);
             jedzenie.Rysuj(e);
 
             head.Rysuj(e);
-            head.GameOver(timer, body, head);
+            head.GameOver(timer, body, ClientSize.Height, ClientSize.Width);
 
-            body.Add(new BodyPart(head.xx, head.yy));
+            body.Add(new BodyPart(head.X, head.Y));
             if (head.x != jedzenie.x || head.y != jedzenie.y)
                 body.RemoveAt(0);
             else
